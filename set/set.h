@@ -1,24 +1,34 @@
-#ifndef SET_H
-#define SET_H
+#pragma once
+#include <initializer_list>
 #include <iostream>
 #include <set>
 
-class Set {
-private:
-  // set
-  std::set<int> set;
+// allows the class to be flexible and hold elements of any type specified by the user, using double as default
+template <typename T = double>
 
+class Set {
+  // creates the set using our versitaile type
+  // automatically private until specified public
+  std::set<T> data;
+  
 public:
   // constructor
-  Set(std::set<int> my_set);
+  Set() = default;
+  Set(std::initializer_list<T> values) : data(values) {}
 
   // Methods:
-  // get set
+  // get set (apparently this is real bad to have)
   std::set<int> get_set();
   // insert element
-  void insert(double val);
-  // contains
-  bool contains(double val);
+  void insert(const &T value);
+  bool is_subset(const Set &other) const;
 };
+
+
+template<typename T>
+void Set::insert(const T& value) {
+  data.insert(value);
+}
+bool Set::is_subset(const Set& other)
 
 #endif
