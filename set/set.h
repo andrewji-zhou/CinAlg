@@ -16,19 +16,29 @@ public:
   Set() = default;
   Set(std::initializer_list<T> values) : data(values) {}
 
-  // Methods:
-  // get set (apparently this is real bad to have)
-  std::set<int> get_set();
-  // insert element
-  void insert(const &T value);
-  bool is_subset(const Set &other) const;
+  // simple one line methods can be declared in the class to keep syntax clean
+  void insert(const T& value) { data.insert(value); }
+  void remove(const T& value) { data.erase(value); }
+  void clear() { data.clear(); }
+
+  bool contains(const T& value) { return data.contains(value); }
+  std::size_t size() const { return data.size(); }
+  bool empty() const { return data.empty(); }
+
+  auto begin() const { return data.begin(); }
+  auto end() const { return data.end(); }
+
+  // just signature is intialized here, defined below since its multi-lines
+  bool is_subset(const Set& other) const;
 };
 
 
 template<typename T>
-void Set::insert(const T& value) {
-  data.insert(value);
-}
-bool Set::is_subset(const Set& other)
+bool Set<T>::is_subset(const Set& other) const {
+  for (const T& x : *this) {
+    if (!other.contains(x)) return false;
+  }
 
-#endif
+  return true;
+}
+
