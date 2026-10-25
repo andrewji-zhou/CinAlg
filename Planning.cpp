@@ -51,7 +51,7 @@
 /* vector space
  * IS A:
     non empty set of objects named vectors
-    set
+    not a set, an ordered tuple 
    HAS A:
     vectors, satisfy all 10 rules
 */
